@@ -20,6 +20,7 @@ from django.urls import path, include
 # 이미지 업로드 필드를 위한 추가
 from django.conf import settings
 from django.conf.urls.static import static
+<<<<<<< HEAD
 from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
@@ -33,6 +34,13 @@ urlpatterns = [
 # django_project/urls.py에 추가
 # python -m pip install Pillow
 
+=======
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("blog/", include('blog.urls')), #localhost:8000/blog/실제blog/urls.py에 있는 경로
+
+]
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

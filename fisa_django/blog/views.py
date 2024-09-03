@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from typing import Any
 from django.db.models.query import QuerySet, Q # 장고 orm에서 쿼리문처럼 or and 조건을 좀더 편하게 쓰게 만들어놓은 클래스
 from django.forms import BaseModelForm
@@ -235,3 +236,21 @@ def delete_comment(request, pk):
             return redirect(post.get_absolute_url())  # /blog/32
     else:
         raise PermissionDenied
+=======
+from django.shortcuts import render
+from .models import Post
+from django.views.generic import ListView
+
+class PostList(ListView):   # post_list.html, post-list
+    model = Post 
+   # template_name = 'blog/index.html' 
+    ordering = '-pk' 
+    context_object_name = 'post_list'
+
+def about_me(request):
+    return render(
+        request,
+        'blog/aobut-me.html'
+    )
+    
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835

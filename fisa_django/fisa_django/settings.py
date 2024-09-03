@@ -10,21 +10,35 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+<<<<<<< HEAD
 from pathlib import Path
 from django.utils import timezone
 import os
 from dotenv import load_dotenv
+=======
+import os
+from pathlib import Path
+from django.utils import timezone
+now = timezone.now()
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 load_dotenv()
+=======
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = os.getenv('DJANGO_SECRET')
+=======
+SECRET_KEY = "django-insecure-$f#xqce9qa30o(z=q^ohal*nu7o(dh7vl9#l@*u*+hv=_4o-!&"
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,24 +57,34 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "board", # 마지막 줄에도 기왕이면 ,를 적어주세요
+<<<<<<< HEAD
     # "account",
     'allauth',
     'allauth.account',
     'crispy_forms',
     "crispy_bootstrap5",
     "debug_toolbar",
+=======
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+<<<<<<< HEAD
+=======
+    
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+<<<<<<< HEAD
     "allauth.account.middleware.AccountMiddleware",
      "debug_toolbar.middleware.DebugToolbarMiddleware",
+=======
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 ]
 
 ROOT_URLCONF = "fisa_django.urls"
@@ -83,6 +107,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "fisa_django.wsgi.application"
 
+<<<<<<< HEAD
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -90,10 +115,13 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+=======
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+<<<<<<< HEAD
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -114,6 +142,16 @@ DATABASES = {
     },
 }
 
+=======
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -136,6 +174,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+<<<<<<< HEAD
 
 
 # 향후 django app 내에서 현재시각을 사용할 때는 
@@ -149,6 +188,12 @@ TIME_ZONE = 'Asia/Seoul'
 # 번역: 텍스트를 여러 언어로 번역할 수 있습니다.
 # 지역화: 날짜, 시간, 숫자, 통화 등의 형식을 사용자의 지역에 맞게 변환합니다.
 # 언어 선택: 사용자가 선호하는 언어를 선택할 수 있게 합니다.
+=======
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "Asia/Seoul"
+
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
 USE_I18N = True
 
 USE_TZ = False
@@ -167,6 +212,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media') 
+<<<<<<< HEAD
 # 'blog/post-list'
 # LOGIN_REDIRECT_URL =  # locahost:8000/login/account/blog/post-list
 LOGIN_REDIRECT_URL = 'blog_app:post_list'  # 로그인성공시 보내줄 리다이렉트 주소
@@ -178,3 +224,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+=======
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.urls import path
 from . import views
 
@@ -33,3 +34,16 @@ urlpatterns = [
     # 검색을 위한 주소
     path("search/<str:q>/", views.PostSearch.as_view(), name="post_search"),
 ]
+=======
+# blog/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # blog 앱 내부의 경로를 지정할 부분
+    # path('', views.index), # localhost:8000/blog 경로, 경로를 호출하면 실행할 함수의 위치
+    path('post-list', views.PostList.as_view()),
+    path('about-me', views.about_me)
+]
+>>>>>>> f971d88972b01a2bc0753283b789dcdff4846835
