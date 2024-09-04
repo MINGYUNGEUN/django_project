@@ -15,6 +15,7 @@ from django.utils import timezone
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,11 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET')
+# AWS S3 설정
+AWS_ACCESS_KEY_ID = os.getenv('S3_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+AWS_S3_REGION_NAME =  os.getenv('S3_REGION')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_FILE_OVERWRITE = False
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -50,6 +59,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap5",
      "debug_toolbar",
+     "storages",
 ]
 
 MIDDLEWARE = [
@@ -106,16 +116,17 @@ load_dotenv()
 DATABASES = {
     "default": {
         "ENGINE": os.getenv('DB_ENGINE'),
-        "NAME": os.getenv('DB_NAME'), # DB Name
+        "NAME": os.getenv('DB_NAME'), 
         "USER": os.getenv('DB_USER'),
         "PASSWORD": os.getenv('DB_PASSWORD'),
         "HOST": os.getenv('DB_HOST'),
-        "PORT": os.getenv('DB_PORT')
+        "PORT": os.getenv('DB_PORT'),
+        'OPTIONS': {
+             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" 
+         },                                                       
+                                                                  
     },
-     'OPTIONS': {
-             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" #  MySQL 데이터베이스의 초기 설정 명령어
-         },                                                       # STRICT_TRANS_TABLES: 트랜잭션을 지원하는 테이블, 
-                                                                  # 잘못된 데이터가 삽입되거나 업데이트될 때 경고 대신 오류를 발생
+     
  }
 
 # Password validation
@@ -161,17 +172,31 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# STATIC_URL = "STATIC/"
+# MEDIA_URL = '/media/'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '_media') 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# MEDIA_ROOT = os.path.join(BASE_DIR, '_media') 
 
+STATICFILES_LOCATION = "static"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
+
+MEDIAFILES_LOCATION = "media"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
+
+STORAGES = {
+    "default": {"BACKEND": "fisa_django.custom_storage.MediaStorage"},
+    "staticfiles": {"BACKEND": "fisa_django.custom_storage.StaticStorage"},
+}
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=2592000", # 30일(30 * 24 * 60 * 60)을 의미,  S3에 업로드된 객체가 브라우저나 캐시 서버에 의해 30일 동안 캐시될 수 있도록 합니다. 이를 통해 웹사이트의 성능을 향상시킵니다.
+}
 
 
 LOGIN_REDIRECT_URL = 'blog_app:post_list' #로그인 성공시 보내줄 리다이렉트 주소
@@ -185,3 +210,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# 디버깅을 위한 출력
+print(f"AWS_ACCESS_KEY_ID: {AWS_ACCESS_KEY_ID}")  # 디버깅
+print(f"AWS_SECRET_ACCESS_KEY: {AWS_SECRET_ACCESS_KEY}")  # 디버깅
+print(f"AWS_STORAGE_BUCKET_NAME: {AWS_STORAGE_BUCKET_NAME}")  # 디버깅
+print(f"STATICFILES_STORAGE: {STATICFILES_LOCATION}")  # 디버깅
