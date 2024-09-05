@@ -2,5 +2,7 @@ myproject/
 __pycache__/
 migrations/
 db.sqlite3
-_media
+_media/
+staticfiles/
+static/
 .env
